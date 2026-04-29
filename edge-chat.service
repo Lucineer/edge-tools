@@ -1,0 +1,16 @@
+[Unit]
+Description=JC1 Edge AI Chat UI
+After=network-online.target edge-gateway.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/bin/python3 %h/.openclaw/workspace/tools/edge-chat.py --port 8080
+Restart=on-failure
+RestartSec=5
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target

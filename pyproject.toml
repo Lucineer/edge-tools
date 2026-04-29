@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jetson-edge-ai"
+version = "0.1.0"
+description = "On-device AI gateway for Jetson Orin Nano — OpenAI-compatible API, RAG, monitoring"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["jetson", "edge-ai", "ollama", "llm", "rag", "jetson-orin"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Environment :: GPU :: NVIDIA CUDA",
+]
+
+[project.optional-dependencies]
+chat = []  # No extra deps — uses stdlib HTTP server
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+edge-gateway = "tools.edge_gateway:main"
+edge-chat = "tools.edge_chat:main"
+edge-rag = "tools.edge_rag:main"
+edge-setup = "tools.edge_setup:main"
+jetson-monitor = "tools.jetson_monitor:main"
+gpu-bench = "tools.gpu_bench:main"
+
+[tool.setuptools.packages.find]
+include = ["tools*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"

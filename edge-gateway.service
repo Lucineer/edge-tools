@@ -1,0 +1,21 @@
+[Unit]
+Description=JC1 Edge AI Gateway (OpenAI-compatible API)
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/bin/python3 %h/.openclaw/workspace/tools/edge-gateway.py --port 11435 --host 127.0.0.1
+Restart=on-failure
+RestartSec=5
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=%h
+
+# Security
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=%h/.openclaw/workspace
+
+[Install]
+WantedBy=default.target
